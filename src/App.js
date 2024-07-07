@@ -1,5 +1,5 @@
 import './App.css';
-import { ArrowLeft } from './assets/icons/ArrowLeft';
+import { ArrowLeft } from './assets/icons/ArrowLeft.tsx';
 import { EyeIcon } from './assets/icons/EyeIcon.tsx';
 import lorbyImage from './assets/images/lorby-background.png';
 
