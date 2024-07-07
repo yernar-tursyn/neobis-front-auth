@@ -66,8 +66,8 @@ p {
 .auth-create {
   margin-top: 20px;
   text-align: center;
-  font-size: 1.5em;
-  font-weight: bold;
+  font-size: 1.2em;
+  font-weight: 500;
   color: white;
 }
 
@@ -111,7 +111,7 @@ p {
 .password-requirements {
   font-size: 0.8em;
   color: #888;
-  margin-bottom: 10px;
+  margin-top: 0px;
   text-align: left;
   padding-left: 0;
 }
@@ -121,13 +121,28 @@ p {
   font-size: 16px;
 }
 
+.password-requirements .valid {
+  color: green;
+}
+
 button {
   padding: 10px;
   background-color: #ccc;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 0.8em;
+  color: #767676;
+}
+
+
+button.active {
+  color: #ffffff;
+  background-color: #000;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 
 .svg-container {
