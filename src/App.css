@@ -7,11 +7,10 @@
 }
 
 .App-logo {
-  /* height: 40vmin; */
   pointer-events: none;
 }
 
-p {
+h1, p {
   margin: 0;
   color: black;
 }
@@ -55,6 +54,8 @@ p {
   cursor: pointer;
   margin-top: 20px;
   color: white;
+  position: relative;
+  top: -80px;
 }
 
 .back-btn p {
@@ -149,4 +150,14 @@ button:disabled {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.logout {
+  cursor: pointer;
+}
+
+.paragraph-register {
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 60px;
 }

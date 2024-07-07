@@ -1,10 +1,14 @@
 import './App.css';
-import { ArrowLeft } from './assets/icons/ArrowLeft.tsx';
-import { EyeIcon } from './assets/icons/EyeIcon.tsx';
+import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from './assets/icons/ArrowLeft.jsx';
+import { EyeIcon } from './assets/icons/EyeIcon.jsx';
 import lorbyImage from './assets/images/lorby-background.png';
 import { useState, useEffect } from 'react';
+import Welcome from './pages/Welcome.jsx';
+import Login from './pages/Login.jsx';
+import { Auth } from './pages/Auth.jsx';
 
-function App() {
+function Register() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -20,11 +24,12 @@ function App() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [allConditionsMet, setAllConditionsMet] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const allValid = Object.values(passwordValidations).every(Boolean) && emailValid && usernameValid;
+    const allValid = Object.values(passwordValidations).every(Boolean) && emailValid && usernameValid && (password === confirmPassword);
     setAllConditionsMet(allValid);
-  }, [passwordValidations, emailValid, usernameValid]);
+  }, [passwordValidations, emailValid, usernameValid, password, confirmPassword]);
 
   const validatePassword = (password) => {
     const length = password.length >= 8 && password.length <= 15;
@@ -52,7 +57,7 @@ function App() {
   };
 
   const validateUsername = (username) => {
-    const usernameValid = username.length > 0; // Добавьте ваши условия валидации логина, если необходимо
+    const usernameValid = username.length > 0;
     setUsernameValid(usernameValid);
   };
 
@@ -80,9 +85,13 @@ function App() {
       });
 
       const data = await response.json();
+      console.log('Response data:', data); 
       if (response.ok) {
+        localStorage.setItem('email', email); 
+        localStorage.setItem('username', username); 
+        localStorage.setItem('password', password); 
         alert('Регистрация успешна');
-        // Добавьте здесь логику перенаправления или другие действия после успешной регистрации
+        navigate('/welcome');
       } else {
         alert(data.message || 'Ошибка регистрации');
       }
@@ -92,6 +101,10 @@ function App() {
     }
   };
 
+  const handleGoBack = () => {
+    navigate('/login'); 
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -99,7 +112,7 @@ function App() {
           <img src={lorbyImage} alt="Lorby background" />
         </div>
         <div className="auth-container">
-          <div className="back-btn">
+          <div className="back-btn" onClick={handleGoBack}>
             <ArrowLeft />
             <p>Назад</p>
           </div>
@@ -168,6 +181,20 @@ function App() {
         </div>
       </header>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/welcome" element={<Welcome />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
   );
 }
 
